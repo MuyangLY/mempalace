@@ -55,7 +55,11 @@ CONVO_EXTENSIONS = {
 
 MIN_CHUNK_SIZE = 30
 CHUNK_SIZE = 800  # chars per drawer — align with miner.py
-MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB — skip files larger than this
+MAX_FILE_SIZE = 500 * 1024 * 1024  # 500 MB — skip files larger than this.
+# Matches miner.py at 500 MB. Long Claude Code sessions, multi-year
+# ChatGPT exports, and lifetime Slack dumps routinely exceed 10 MB; the
+# cap at that level silently dropped them with `continue`. Source size
+# does not affect storage or embedding cost — chunking happens downstream.
 
 
 def _register_file(collection, source_file: str, wing: str, agent: str):
